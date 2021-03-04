@@ -1,3 +1,5 @@
 bug-tracking-env/
 .vscode/
 mysite/.env
+__pycache__
+db.sqlite3
