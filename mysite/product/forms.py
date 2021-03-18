@@ -1,6 +1,7 @@
 from django import forms
 from product.models import Product
 from django.forms import ModelForm
+from company.models import Company
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -11,4 +12,5 @@ class ProductCreationForm(ModelForm):
     
     def __init__(self, requested_user_id, *args, **kwargs):
         super(ProductCreationForm, self).__init__(*args, **kwargs)
+        self.fields['company'].queryset = Company.objects.filter(administrator = requested_user_id)
         self.fields['administrator'].queryset = User.objects.filter(id = requested_user_id)
