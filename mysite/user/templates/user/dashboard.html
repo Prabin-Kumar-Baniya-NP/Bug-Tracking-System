@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block section %}
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -9,3 +11,4 @@
 <a href = {% url "user:change-password" %}>Change Pasword</a>
 <a href = {% url "user:profile-view" %}>View Profile</a>
 <a href = {% url "user:update-profile"%}>Update Profile</a>
+{% endblock %}

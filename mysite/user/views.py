@@ -23,10 +23,10 @@ def index(request):
                     return HttpResponseRedirect("/dashboard/")
                 else:
                     messages.error(request, "Please enter valid username and password")
-                    return HttpResponseRedirect("/index/")
+                    return HttpResponseRedirect(reverse("user:index"))
             else:
                 messages.error(request, "Please enter valid data")
-                return HttpResponseRedirect("/index/")
+                return HttpResponseRedirect(reverse("user:index"))
         else:
             context = {
                 'form' : AuthenticationForm()
@@ -62,7 +62,7 @@ def logout(request):
     """
     perform_logout(request)
     messages.success(request, "Logged Out Successfully")
-    return HttpResponseRedirect("/index/")
+    return HttpResponseRedirect(reverse("user:index"))
 
 def change_password(request):
     """
@@ -86,7 +86,7 @@ def change_password(request):
             return render(request, "user/change-password.html", {'form': form})
     else:
         messages.error(request, "You must login to change the password")
-        return HttpResponseRedirect('/index/')
+        return HttpResponseRedirect(reverse("user:index"))
 
 def profile_view(request):
     """
