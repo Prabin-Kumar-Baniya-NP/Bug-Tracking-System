@@ -7,8 +7,7 @@
     {% endfor %}
 </ul>
 {% endif %}
-<a href = {% url "user:logout" %}>Logout</a>
-<a href = {% url "user:change-password" %}>Change Pasword</a>
-<a href = {% url "user:profile-view" %}>View Profile</a>
-<a href = {% url "user:update-profile"%}>Update Profile</a>
+ <a href = {% url "company:company-creation" %}>Create Company </a>
+  <a href = {% url "product:product-creation" %}>Add Product </a>
+  <a href = {% url "team:team-creation" %}>Add Team </a>
 {% endblock %}

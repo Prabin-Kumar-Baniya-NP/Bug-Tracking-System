@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login as perform_login, logout as perform_logout, update_session_auth_hash
 from user.models import User
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     """
@@ -56,6 +58,7 @@ def UserCreationView(request):
         }
         return render(request, "user/sign_up.html", context)
 
+@login_required
 def logout(request):
     """
     This view will handle the logout of the user
@@ -64,6 +67,7 @@ def logout(request):
     messages.success(request, "Logged Out Successfully")
     return HttpResponseRedirect(reverse("user:index"))
 
+@login_required
 def change_password(request):
     """
     This view will handle the changing of passsowrd of the user
@@ -88,6 +92,7 @@ def change_password(request):
         messages.error(request, "You must login to change the password")
         return HttpResponseRedirect(reverse("user:index"))
 
+@login_required
 def profile_view(request):
     """
     This view will show the user personal and employee data
@@ -97,6 +102,7 @@ def profile_view(request):
     }
     return render(request, "user/profile-view.html", context)
 
+@login_required
 def update_profile(request):
     """
     This view will update the user informations
@@ -115,5 +121,6 @@ def update_profile(request):
         }
         return render(request, "user/update-profile.html", context)
 
+@login_required
 def dashboard(request):
     return render(request, "user/dashboard.html", {})

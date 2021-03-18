@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 {% block section %}
-{{ user_info.username }}
-{{ user_info.email }}
+
+Username: {{ user_info.username }}
+First Name: {{ user.first_name }}
+Last Name: {{ user.last_name }}
+Email ID: {{ user_info.email }}
+Date of Birth: {{ user.birth_date }}
+Adddress: {{ user.address }}
+About me: {{ user.about_me }}
+
+<hr>
+<a href = {% url "user:change-password" %}>Change Pasword</a>
+<a href = {% url "user:update-profile"%}>Update Profile</a>
+
 {% endblock %}
