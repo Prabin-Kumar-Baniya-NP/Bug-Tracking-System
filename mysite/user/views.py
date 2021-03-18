@@ -102,7 +102,11 @@ def update_profile(request):
     This view will update the user informations
     """
     if request.method == "POST":
-        pass
+        updated_profile = UserUpdationForm(request.POST, instance = request.user)
+        if updated_profile.is_valid():
+            updated_profile.save()
+            messages.success(request, "Profile Updated Successfully")
+            return HttpResponseRedirect('/dashboard/')
     else:
         user = User.objects.get(id = request.user.id)
         context = {

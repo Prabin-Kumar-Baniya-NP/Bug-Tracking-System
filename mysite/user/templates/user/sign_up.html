@@ -7,29 +7,6 @@
 {% endif %}
 <form action="" method="POST">
 {% csrf_token %}
-    <div class="first-name">
-    <label for="{{ form.first_name.id_for_label }}">First Name</label>
-    {{ form.first_name }}
-</div>
-<div class="last-name">
-    <label for="{{ form.last_name.id_for_label }}">Last Name</label>
-    {{ form.last_name }}
-</div>
-    <div class="username">
-    <label for="{{ form.username.id_for_label }}">Username</label>
-    {{ form.username }}
-</div>
-<div class="password">
-    <label for="{{ form.password.id_for_label }}">Password</label>
-    {{ form.password }}
-</div>
-<div class="date-of-birth">
-    <label for="{{ form.birth_date.id_for_label }}">Date of Birth</label>
-    {{ form.birth_date }}
-</div>
-<div class="email">
-    <label for="{{ form.email.id_for_label }}">Email address:</label>
-    {{ form.email }}
-</div>
+   {{ form.as_p }}
 <input type = "submit" value = "Create User">
 </form>
