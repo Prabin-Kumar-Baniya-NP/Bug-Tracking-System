@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block section %}
+{% if designation_list %}
+    {% for designation in designation_list %}
+        <a href = {% url "designation:designation-details" designation.id %}>{{designation}}</a>
+    {% endfor %}
+{% elif user.designation_assigned %}
+    {{ user.designation_assigned }}
+{% else %}
+    You are not assigned in any designation.
+{% endif %}
+{% endblock %}
