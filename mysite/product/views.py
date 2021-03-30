@@ -37,7 +37,7 @@ def productUpdationView(request, product_id):
     requested_product = Product.objects.get(id = product_id)
     if request.user in requested_product.administrator.all():
         if request.method == "POST":
-            form = ProductUpdationForm(product_id, request.POST, instance = requested_product)
+            form = ProductUpdationForm(request.user.id, product_id, request.POST, instance = requested_product)
             if request.user in requested_product.administrator.all():
                 if form.is_valid():
                     form.save()
@@ -51,7 +51,7 @@ def productUpdationView(request, product_id):
                 return HttpResponseRedirect(reverse("user:dashboard"))
         else:
             context = {
-                'form': ProductUpdationForm(product_id, instance = requested_product),
+                'form': ProductUpdationForm(request.user.id,product_id, instance = requested_product),
             }
             return render(request,"product/product-updation-page.html", context)
     else:

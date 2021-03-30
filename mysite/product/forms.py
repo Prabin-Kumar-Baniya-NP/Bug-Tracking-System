@@ -20,8 +20,9 @@ class ProductUpdationForm(ModelForm):
         model = Product
         fields = "__all__"
     
-    def __init__(self, product_id, *args, **kwargs):
+    def __init__(self, requested_user_id, product_id, *args, **kwargs):
         super(ProductUpdationForm, self).__init__(*args, **kwargs)
         administrator = Product.objects.get(id = product_id).administrator.all()
         non_administrator = User.objects.filter(product_assigned = product_id)
+        self.fields['company'].queryset = Company.objects.filter(administrator = requested_user_id)
         self.fields['administrator'].queryset = administrator | non_administrator
