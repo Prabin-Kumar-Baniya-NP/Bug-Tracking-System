@@ -27,7 +27,8 @@ class TeamListView(LoginRequiredMixin, generic.ListView):
     template_name = "team/index.html"
 
     def get_queryset(self):
-        return Team.objects.filter(administrator = self.request.user.id)
+        user_assigned_team = self.request.user.team_assigned.all()
+        return Team.objects.filter(administrator = self.request.user.id).union(user_assigned_team)
 
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):
     model = Team

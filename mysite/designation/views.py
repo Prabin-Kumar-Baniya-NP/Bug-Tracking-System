@@ -26,7 +26,8 @@ class DesignationListView(LoginRequiredMixin, generic.ListView):
     template_name = "designation/index.html"
 
     def get_queryset(self):
-        return Designation.objects.filter(administrator = self.request.user.id)
+        user_assigned_designation = self.request.user.designation_assigned.all()
+        return Designation.objects.filter(administrator = self.request.user.id).union(user_assigned_designation)
 
 class DesignationDetailView(LoginRequiredMixin, generic.DetailView):
     model = Designation

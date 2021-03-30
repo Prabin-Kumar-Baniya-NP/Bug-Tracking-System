@@ -26,7 +26,8 @@ class ProductListView(LoginRequiredMixin, generic.ListView):
     template_name = "product/index.html"
 
     def get_queryset(self):
-        return Product.objects.filter(administrator = self.request.user.id)
+        user_assigned_product = self.request.user.product_assigned.all()
+        return Product.objects.filter(administrator = self.request.user.id).union(user_assigned_product)
 
 class ProductDetailView(LoginRequiredMixin, generic.DetailView):
     model = Product

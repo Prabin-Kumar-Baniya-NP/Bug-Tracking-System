@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect
 from django.views import generic 
 from company.models import Company
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 @login_required
 def companyCreationView(request):
@@ -30,7 +31,8 @@ class CompanyListView(LoginRequiredMixin, generic.ListView):
     template_name = "company/index.html"
 
     def get_queryset(self):
-        return Company.objects.filter(administrator = self.request.user.id)
+        user_associated_company_id = self.request.user.company_associated.id
+        return Company.objects.filter(administrator = self.request.user.id).union(Company.objects.filter(id = user_associated_company_id))
 
 class CompanyDetailView(LoginRequiredMixin, generic.DetailView):
     model = Company
