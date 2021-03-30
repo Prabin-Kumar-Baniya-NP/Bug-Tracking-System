@@ -6,3 +6,6 @@ class Designation(models.Model):
     name = models.CharField(max_length = 50)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null = True)
     administrator = models.ManyToManyField(settings.AUTH_USER_MODEL)
+
+    def __str__(self):
+        return self.name + " - " + self.team.name
