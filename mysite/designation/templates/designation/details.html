@@ -5,5 +5,6 @@
     {% if user in object.administrator.all %}
         <a href = {% url "designation:designation-updation" object.id %}>Update Details </a>
          <a href = {% url "designation:designation-deletion" object.id %}>Delete Designation </a>
+         <a href = {% url "user:assign-designation-to-user" object.id %}>Add User</a>
     {% endif %}
 {% endblock section %}

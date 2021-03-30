@@ -5,7 +5,13 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login as perform_login, logout as perform_logout, update_session_auth_hash
 from user.models import User
+from company.models import Company
+from product.models import Product
+from team.models import Team
+from designation.models import Designation
 from django.contrib.auth.decorators import login_required
+from django.views import generic 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def index(request):
@@ -39,7 +45,7 @@ def index(request):
         return render(request, "user/dashboard.html", {})
     
 
-def UserCreationView(request):
+def UserCreationView(request, **kwargs):
     """
     This view will handle the user creation form
     """
@@ -57,6 +63,50 @@ def UserCreationView(request):
             'form' : UserCreationForm()  
         }
         return render(request, "user/sign_up.html", context)
+
+@login_required
+def addCompanyToUserProfile(request,username,company_id):
+    user = User.objects.get(username = username)
+    user.company_associated = Company.objects.get(id = company_id)
+    user.save()
+    messages.success(request, f"{user} added under this company")
+    return HttpResponseRedirect(reverse("user:dashboard"))
+
+@login_required
+def addProductToUserProfile(request,username, product_id):
+    user = User.objects.get(username = username)
+    product = Product.objects.get(id = product_id)
+    user.company_associated = Company.objects.get(id = product.company.id)
+    user.product_assigned.add(product)
+    user.save()
+    messages.success(request, f"{product} assigned to {user}")
+    return HttpResponseRedirect(reverse("user:dashboard"))
+
+@login_required
+def addTeamToUserProfile(request,username, team_id):
+    user = User.objects.get(username = username)
+    team = Team.objects.get(id = team_id)
+    product = Product.objects.get(id = team.product.id)
+    user.company_associated = Company.objects.get(id = product.company.id)
+    user.product_assigned.add(product)
+    user.team_assigned.add(team)
+    user.save()
+    messages.success(request, f"{team} assigned to {user}")
+    return HttpResponseRedirect(reverse("user:dashboard"))
+
+@login_required
+def addDesignationToUserProfile(request,username, designation_id):
+    user = User.objects.get(username = username)
+    designation = Designation.objects.get(id = designation_id)
+    team = Team.objects.get(id = designation.team.id)
+    product = Product.objects.get(id = team.product.id)
+    user.company_associated = Company.objects.get(id = product.company.id)
+    user.product_assigned.add(product)
+    user.team_assigned.add(team)
+    user.designation_assigned.add(designation)
+    user.save()
+    messages.success(request, f"{designation} assigned to {user}")
+    return HttpResponseRedirect(reverse("user:dashboard"))
 
 @login_required
 def logout(request):
@@ -124,3 +174,55 @@ def update_profile(request):
 @login_required
 def dashboard(request):
     return render(request, "user/dashboard.html", {})
+
+@login_required
+def companyUnassociatedUserProfile(request,company_id):
+    company = Company.objects.get(id = company_id)
+    if request.user in company.administrator.all():
+        context = {
+            'company_id': company_id,
+            'user_list': User.objects.filter(company_associated = None)
+        }
+        return render(request, "user/company-unassociated-user-list.html", context)
+    else:
+        messages.error(request, "You are not eligible to perform this action")
+        return HttpResponseRedirect(reverse("user:dashboard"))
+
+@login_required
+def productUnassignedUserProfile(request,product_id):
+    product = Product.objects.get(id = product_id)
+    if request.user in product.administrator.all():
+        context = {
+            'product_id': product_id,
+            'user_list': User.objects.filter(company_associated = product.company).difference(User.objects.filter(product_assigned = product))
+        }
+        return render(request, "user/product-assign-user-list.html", context)
+    else:
+        messages.error(request, "You are not eligible to perform this action")
+        return HttpResponseRedirect(reverse("user:dashboard"))
+
+@login_required
+def teamUnassignedUserProfile(request,team_id):
+    team = Team.objects.get(id = team_id)
+    if request.user in team.administrator.all():
+        context = {
+            'team_id': team_id,
+            'user_list': User.objects.filter(company_associated = team.product.company).difference(User.objects.filter(team_assigned = team))
+        }
+        return render(request, "user/team-assign-user-list.html", context)
+    else:
+        messages.error(request, "You are not eligible to perform this action")
+        return HttpResponseRedirect(reverse("user:dashboard"))
+
+@login_required
+def designationUnassignedUserProfile(request,designation_id):
+    designation = Designation.objects.get(id = designation_id)
+    if request.user in designation.administrator.all():
+        context = {
+            'designation_id': designation_id,
+            'user_list': User.objects.filter(company_associated = designation.team.product.company).difference(User.objects.filter(designation_assigned = designation))
+        }
+        return render(request, "user/designation-assign-user-list.html", context)
+    else:
+        messages.error(request, "You are not eligible to perform this action")
+        return HttpResponseRedirect(reverse("user:dashboard"))

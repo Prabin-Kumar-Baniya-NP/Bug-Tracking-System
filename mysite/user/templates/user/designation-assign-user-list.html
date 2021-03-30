@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block section %}
+{% for eligible_user in user_list %}
+    <div>
+    {{eligible_user}} - <a href ={% url "user:add-designation-to-user-profile" eligible_user.username designation_id %}>Add</a>
+    </div>
+{% endfor %}
+{% endblock section %}
