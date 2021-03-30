@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block section %}
+{{ is_administrator }}
+<form action = "" method = "POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button type = "submit" value = "Submit">Update Details</button>
+</form>
+{% endblock %}

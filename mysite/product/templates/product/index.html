@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block section %}
+{% if product_list %}
+    {% for product in product_list %}
+        <a href = {% url "product:product-details" product.id %}>{{product}}</a>
+    {% endfor %}
+{% elif user.product_assigned %}
+    {{ user.product_assigned }}
+{% else %}
+    You are not assigned in any product.
+{% endif %}
+{% endblock %}
