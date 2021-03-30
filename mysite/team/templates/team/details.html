@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block section %}
+    {{ object.name }}
+    
+    {% if user in object.administrator.all %}
+        <a href = {% url "team:team-updation" object.id %}>Update Details </a>
+         <a href = {% url "team:team-deletion" object.id %}>Delete Team </a>
+    {% endif %}
+{% endblock section %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block section %}
+{% if team_list %}
+    {% for team in team_list %}
+        <a href = {% url "team:team-details" team.id %}>{{team}}</a>
+    {% endfor %}
+{% elif user.team_assigned %}
+    {{ user.team_assigned }}
+{% else %}
+    You are not assigned in any team.
+{% endif %}
+{% endblock %}
