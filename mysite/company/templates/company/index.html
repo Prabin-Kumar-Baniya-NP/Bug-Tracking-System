@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block section %}
+{% if company_list %}
+    {% for company in company_list %}
+        <a href = {% url "company:company-details" company.id %}>{{company}}</a>
+    {% endfor %}
+{% elif user.company_associated %}
+    {{ user.company_associated }}
+{% else %}
+    You are not added in any company
+{% endif %}
+{% endblock %}
