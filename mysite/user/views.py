@@ -12,7 +12,7 @@ from designation.models import Designation
 from django.contrib.auth.decorators import login_required
 from django.views import generic 
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.core.paginator import Paginator
 
 def index(request):
     """
@@ -179,9 +179,13 @@ def dashboard(request):
 def companyUnassociatedUserProfile(request,company_id):
     company = Company.objects.get(id = company_id)
     if request.user in company.administrator.all():
+        user_list =User.objects.filter(company_associated = None)
+        paginator = Paginator(user_list, 2)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'company_id': company_id,
-            'user_list': User.objects.filter(company_associated = None)
+            'page_obj': page_obj,
         }
         return render(request, "user/company-unassociated-user-list.html", context)
     else:
@@ -192,9 +196,13 @@ def companyUnassociatedUserProfile(request,company_id):
 def productUnassignedUserProfile(request,product_id):
     product = Product.objects.get(id = product_id)
     if request.user in product.administrator.all():
+        user_list =User.objects.filter(company_associated = product.company).difference(User.objects.filter(product_assigned = product))
+        paginator = Paginator(user_list, 2)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'product_id': product_id,
-            'user_list': User.objects.filter(company_associated = product.company).difference(User.objects.filter(product_assigned = product))
+            'page_obj': page_obj,
         }
         return render(request, "user/product-assign-user-list.html", context)
     else:
@@ -205,9 +213,13 @@ def productUnassignedUserProfile(request,product_id):
 def teamUnassignedUserProfile(request,team_id):
     team = Team.objects.get(id = team_id)
     if request.user in team.administrator.all():
+        user_list = User.objects.filter(company_associated = team.product.company).difference(User.objects.filter(team_assigned = team))
+        paginator = Paginator(user_list, 2)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'team_id': team_id,
-            'user_list': User.objects.filter(company_associated = team.product.company).difference(User.objects.filter(team_assigned = team))
+            'page_obj': page_obj,
         }
         return render(request, "user/team-assign-user-list.html", context)
     else:
@@ -218,9 +230,13 @@ def teamUnassignedUserProfile(request,team_id):
 def designationUnassignedUserProfile(request,designation_id):
     designation = Designation.objects.get(id = designation_id)
     if request.user in designation.administrator.all():
+        user_list = User.objects.filter(company_associated = designation.team.product.company).difference(User.objects.filter(designation_assigned = designation))
+        paginator = Paginator(user_list, 2)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'designation_id': designation_id,
-            'user_list': User.objects.filter(company_associated = designation.team.product.company).difference(User.objects.filter(designation_assigned = designation))
+           'page_obj': page_obj,
         }
         return render(request, "user/designation-assign-user-list.html", context)
     else:
