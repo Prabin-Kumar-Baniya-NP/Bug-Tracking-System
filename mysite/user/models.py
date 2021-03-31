@@ -13,3 +13,30 @@ class User(AbstractUser):
     product_assigned = models.ManyToManyField(Product, blank = True)
     team_assigned = models.ManyToManyField(Team, blank = True)
     designation_assigned = models.ManyToManyField(Designation, blank = True)
+
+    @property
+    def administratorStatus(self):
+        user = User.objects.get(id=self.id)
+        company_administrator_status = Company.objects.filter(name = user.company_associated, administrator = user).exists()
+        product_administrator_status = False
+        product_administrator_list = [product.administrator.all() for product in user.product_assigned.all()]
+        for administrator in product_administrator_list:
+            if user == administrator:
+                product_administrator_status = True
+        team_administrator_status = False
+        team_administrator_list = [team.administrator.all() for team in user.team_assigned.all()]
+        for administrator in team_administrator_list:
+            if user == administrator:
+                team_administrator_status = True
+        designation_administrator_status = False
+        designation_administrator_list = [designation.administrator.all() for designation in user.designation_assigned.all()]
+        for administrator in designation_administrator_list:
+            if user == administrator:
+                designation_administrator_status = True
+        adminStatus = {
+            'company_administrator': company_administrator_status,
+            'product_administrator': product_administrator_status,
+            'team_administrator': team_administrator_status,
+            'designation_administrator': designation_administrator_status,
+        }
+        return adminStatus
