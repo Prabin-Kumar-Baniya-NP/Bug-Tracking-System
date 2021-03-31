@@ -36,3 +36,6 @@ class Ticket(models.Model):
     public_view = models.BooleanField(default=False)
     product_name = models.ForeignKey(Product, on_delete=models.CASCADE, default= None)
     submitted_by = models.ForeignKey(User, on_delete=models.CASCADE, default = None)
+
+    def __str__(self):
+        return self.title

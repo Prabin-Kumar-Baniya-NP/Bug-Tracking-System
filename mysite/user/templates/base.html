@@ -72,6 +72,10 @@
                             <span class="icon"><i class="fas fa-users"></i></span> Team </a>
  <a href={% url 'designation:designation-list'%} class="list-group-item list-group-item-action">
                             <span class="icon"><i class="fas fa-user-md"></i></span> Designation </a>
+                            <a href={% url 'ticket:report-bug'%} class="list-group-item list-group-item-action">
+                            <span class="icon"><i class="fas fa-exclamation-circle"></i></span> Report Bug </a>
+                            <a href={% url 'ticket:submitted-tickets'%} class="list-group-item list-group-item-action">
+                            <span class="icon"><i class="fas fa-envelope-open-text"></i></span> Submitted Tickets </a>
 </div>
 {% endif %}
                     <!--------------------------------------- Sidebar Ends Here ---------------------------------------->
