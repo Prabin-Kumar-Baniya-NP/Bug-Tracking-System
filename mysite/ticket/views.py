@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from ticket.models import Ticket
 from company.models import Company
 from product.models import Product
@@ -43,8 +44,14 @@ class SubmittedTicketsListView(LoginRequiredMixin, generic.ListView):
 def reviewTickets(request):
     adminStatus = request.user.administratorStatus
     if True in adminStatus.values():
-        messages.success(request, "You are eligible to view this page")
-        return HttpResponseRedirect(reverse("user:dashboard"))
+        ticket_list = Ticket.objects.filter(product_name = request.user.product_assigned.name, ticket_status = "SUB")
+        paginator = Paginator(ticket_list, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {
+            'page_obj': page_obj
+        }
+        return render(request, "ticket/review-tickets.html", context)
     else:
         messages.error(request, "You are not eligible to view this page")
         return HttpResponseRedirect(reverse("user:dashboard"))

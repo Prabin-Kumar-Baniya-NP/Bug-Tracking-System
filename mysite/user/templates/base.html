@@ -76,6 +76,10 @@
                             <span class="icon"><i class="fas fa-exclamation-circle"></i></span> Report Bug </a>
                             <a href={% url 'ticket:submitted-tickets'%} class="list-group-item list-group-item-action">
                             <span class="icon"><i class="fas fa-envelope-open-text"></i></span> Submitted Tickets </a>
+                            {% if True in user.administratorStatus.values %}
+<a href={% url 'ticket:review-tickets'%} class="list-group-item list-group-item-action">
+                            <span class="icon"><i class="fas fa-envelope-open-text"></i></span> Review Tickets </a>    
+                            {% endif %}
 </div>
 {% endif %}
                     <!--------------------------------------- Sidebar Ends Here ---------------------------------------->
