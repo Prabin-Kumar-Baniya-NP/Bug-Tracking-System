@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'product.apps.ProductConfig',
     'team.apps.TeamConfig',
     'designation.apps.DesignationConfig',
+    'ticket.apps.TicketConfig',
 ]
 
 MIDDLEWARE = [
