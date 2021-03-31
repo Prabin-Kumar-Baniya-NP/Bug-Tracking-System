@@ -30,7 +30,7 @@
                     <a class="nav-link" href="{% url "user:dashboard" %}"><span><i class="fas fa-columns"></i></span> Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><span><i class="fas fa-exclamation-circle"></i></span> Report Bug</a>
+                    <a class="nav-link" href={% url "ticket:report-bug" %}><span><i class="fas fa-exclamation-circle"></i></span> Report Bug</a>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">

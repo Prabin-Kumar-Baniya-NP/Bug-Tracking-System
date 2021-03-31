@@ -30,7 +30,7 @@
                     <a class="nav-link" href="{% url "user:dashboard" %}"><span><i class="fas fa-columns"></i></span> Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><span><i class="fas fa-exclamation-circle"></i></span> Report Bug</a>
+                    <a class="nav-link" href={% url "ticket:report-bug" %}><span><i class="fas fa-exclamation-circle"></i></span> Report Bug</a>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">
@@ -64,13 +64,13 @@
                 {% if request.user.is_authenticated %}
                     <!--------------------------------------- Sidebar Starts Here -------------------------------------->
 <div class="list-group sidebar mt-3">
-    <a href="#" class="list-group-item list-group-item-action">
+    <a href={% url 'company:company-list'%} class="list-group-item list-group-item-action">
                             <span class="icon"><i class="fas fa-layer-group"></i></span> Company</a>
-      <a href="#" class="list-group-item list-group-item-action"><span class="icon">
+      <a href={% url 'product:product-list'%} class="list-group-item list-group-item-action"><span class="icon">
           <i class="fab fa-microsoft"></i></span> Products</a>
-<a href="#" class="list-group-item list-group-item-action">
+<a href={% url 'team:team-list'%} class="list-group-item list-group-item-action">
                             <span class="icon"><i class="fas fa-users"></i></span> Team </a>
- <a href="#" class="list-group-item list-group-item-action">
+ <a href={% url 'designation:designation-list'%} class="list-group-item list-group-item-action">
                             <span class="icon"><i class="fas fa-user-md"></i></span> Designation </a>
 </div>
 {% endif %}

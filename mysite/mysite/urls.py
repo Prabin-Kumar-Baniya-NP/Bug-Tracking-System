@@ -23,4 +23,5 @@ urlpatterns = [
     path("product/", include("product.urls")),
     path("team/", include("team.urls")),
     path("designation/", include("designation.urls")),
+    path("bug/", include("ticket.urls")),
 ]
