@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block section %}
+{{ object.title }}
+{% if True in user.administratorStatus.values%}
+    <a href = {% url "ticket:update-ticket" object.id%}>Update</a>
+{% endif %}
+{% endblock section %}
