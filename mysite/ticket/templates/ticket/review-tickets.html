@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block section %}
 {% for ticket in page_obj %}
-    {{ ticket }}<br>
+    <a href = {% url "ticket:ticket-details" ticket.id %}>{{ ticket }}</a>
 {% endfor %}
 
 <div class="pagination">
