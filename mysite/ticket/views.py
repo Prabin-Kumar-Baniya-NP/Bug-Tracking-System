@@ -1,5 +1,5 @@
 from django.shortcuts import render, reverse
-from ticket.forms import BugReportForm
+from ticket.forms import BugReportForm, TicketUpdationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -44,7 +44,8 @@ class SubmittedTicketsListView(LoginRequiredMixin, generic.ListView):
 def reviewTickets(request):
     adminStatus = request.user.administratorStatus
     if True in adminStatus.values():
-        ticket_list = Ticket.objects.filter(product_name = request.user.product_assigned.name, ticket_status = "SUB")
+        user_assigned_product = [product.id for product in request.user.product_assigned.all()]
+        ticket_list = Ticket.objects.filter(product_name__in = user_assigned_product, ticket_status = "SUB")
         paginator = Paginator(ticket_list, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -52,6 +53,32 @@ def reviewTickets(request):
             'page_obj': page_obj
         }
         return render(request, "ticket/review-tickets.html", context)
+    else:
+        messages.error(request, "You are not eligible to view this page")
+        return HttpResponseRedirect(reverse("user:dashboard"))
+
+class TicketDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Ticket
+    template_name = "ticket/details.html"
+
+@login_required
+def ticketUpdation(request, ticket_id):
+    adminStatus = request.user.administratorStatus
+    if True in adminStatus.values():
+        if request.method == "POST":
+            form = TicketUpdationForm(request.user.id,request.POST, instance = Ticket.objects.get(id = ticket_id))
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Ticket Details Updated Successfully")
+                return HttpResponseRedirect(reverse("ticket:ticket-details",args = [ticket_id]))
+            else:
+                messages.error(request, "Please enter valid data. Try again")
+                return HttpResponseRedirect(reverse("ticket:ticket-details",args = [ticket_id]))
+        else:
+            context = {
+                'form' : TicketUpdationForm(request.user.id, instance = Ticket.objects.get(id = ticket_id)),
+            }
+            return render(request, "ticket/update-ticket.html", context)
     else:
         messages.error(request, "You are not eligible to view this page")
         return HttpResponseRedirect(reverse("user:dashboard"))
