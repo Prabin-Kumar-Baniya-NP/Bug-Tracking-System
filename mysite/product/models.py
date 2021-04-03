@@ -9,4 +9,4 @@ class Product(models.Model):
     administrator = models.ManyToManyField(settings.AUTH_USER_MODEL)
 
     def __str__(self):
-        return self.name + " - " + self.company.name
+        return self.name
