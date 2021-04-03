@@ -31,8 +31,11 @@ class CompanyListView(LoginRequiredMixin, generic.ListView):
     template_name = "company/index.html"
 
     def get_queryset(self):
-        user_associated_company_id = self.request.user.company_associated.id
-        return Company.objects.filter(administrator = self.request.user.id).union(Company.objects.filter(id = user_associated_company_id))
+        try:
+            user_associated_company_id = self.request.user.company_associated.id
+            return Company.objects.filter(administrator = self.request.user.id).union(Company.objects.filter(id = user_associated_company_id))
+        except:
+            return Company.objects.filter(administrator = self.request.user)
 
 class CompanyDetailView(LoginRequiredMixin, generic.DetailView):
     model = Company
