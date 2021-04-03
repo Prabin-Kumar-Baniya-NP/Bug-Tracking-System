@@ -17,18 +17,18 @@ class User(AbstractUser):
     @property
     def administratorStatus(self):
         user = User.objects.get(id=self.id)
-        company_administrator_status = Company.objects.filter(name = user.company_associated, administrator = user).exists()
-        product_administrator_status = False
+        company_administrator_status = (Company.objects.filter(administrator = user).union(Company.objects.filter(name = user.company_associated, administrator = user))).exists()
+        product_administrator_status = True if Product.objects.filter(administrator = user).exists else False
         product_administrator_list = [product.administrator.all() for product in user.product_assigned.all()]
         for administrator in product_administrator_list:
             if user == administrator:
                 product_administrator_status = True
-        team_administrator_status = False
+        team_administrator_status = True if Team.objects.filter(administrator = user).exists else False
         team_administrator_list = [team.administrator.all() for team in user.team_assigned.all()]
         for administrator in team_administrator_list:
             if user == administrator:
                 team_administrator_status = True
-        designation_administrator_status = False
+        designation_administrator_status = True if Designation.objects.filter(administrator = user).exists else False
         designation_administrator_list = [designation.administrator.all() for designation in user.designation_assigned.all()]
         for administrator in designation_administrator_list:
             if user == administrator:
