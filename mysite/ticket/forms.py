@@ -24,5 +24,5 @@ class TicketUpdationForm(ModelForm):
     def __init__(self, requested_user_id, *args, **kwargs):
         super(TicketUpdationForm, self).__init__(*args, **kwargs)
         requested_user = User.objects.get(id = requested_user_id)
-        self.fields['product_name'].queryset = requested_user.product_assigned.all().union(Product.objects.filter(administrator = requested_user))
+        self.fields['product_name'].queryset = Product.objects.filter(administrator = requested_user)
         self.fields['submitted_by'].queryset = User.objects.filter(id= requested_user_id)
