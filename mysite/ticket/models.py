@@ -1,6 +1,7 @@
 from django.db import models
 from ticket.ticket_number import ticket_number_generator
 from product.models import Product
+from django.utils import timezone
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -36,6 +37,8 @@ class Ticket(models.Model):
     public_view = models.BooleanField(default=False)
     product_name = models.ForeignKey(Product, on_delete=models.CASCADE, default= None)
     submitted_by = models.ForeignKey(User, on_delete=models.CASCADE, default = None)
+    submitted_on = models.DateTimeField(default = timezone.now, editable = False)
+    screenshot = models.ImageField(upload_to = "ticket/ticket-screenshots/", blank=True,null=True,default=None)
     assigned_to = models.ManyToManyField(User, blank = True, related_name= "User_assigned")
 
     def __str__(self):
