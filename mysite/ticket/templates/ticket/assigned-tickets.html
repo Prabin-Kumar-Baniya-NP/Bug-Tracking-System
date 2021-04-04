@@ -1,0 +1,7 @@
+{% extends 'mysite/base.html' %}
+{% block section %}
+{% for ticket in ticket_list%}
+    {{ ticket }}
+{% endfor %}
+{% endblock section %}
+

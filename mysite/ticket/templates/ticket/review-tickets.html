@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'mysite/base.html' %}
 {% block section %}
 {% for ticket in page_obj %}
     <a href = {% url "ticket:ticket-details" ticket.id %}>{{ ticket }}</a>

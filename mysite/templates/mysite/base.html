@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Project Name</title>
+    <title>Project</title>
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
@@ -78,7 +78,9 @@
                             <span class="icon"><i class="fas fa-envelope-open-text"></i></span> Submitted Tickets </a>
                             {% if True in user.administratorStatus.values %}
 <a href={% url 'ticket:review-tickets'%} class="list-group-item list-group-item-action">
-                            <span class="icon"><i class="fas fa-envelope-open-text"></i></span> Review Tickets </a>    
+                            <span class="icon"><i class="fas fa-envelope-open-text"></i></span> Review Tickets </a>
+                            <a href={% url 'ticket:assigned-tickets'%} class="list-group-item list-group-item-action">
+                            <span class="icon"><i class="fas fa-envelope-open-text"></i></span> Assigned Tickets </a>    
                             {% endif %}
 </div>
 {% endif %}
