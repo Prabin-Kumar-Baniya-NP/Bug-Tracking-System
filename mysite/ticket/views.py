@@ -83,3 +83,11 @@ def ticketUpdation(request, ticket_id):
     else:
         messages.error(request, "You are not eligible to view this page")
         return HttpResponseRedirect(reverse("user:dashboard"))
+
+class AssignedTicketsListView(LoginRequiredMixin, generic.ListView):
+    model = Ticket
+    paginate_by = 2
+    template_name = "ticket/assigned-tickets.html"
+
+    def get_queryset(self):
+        return Ticket.objects.filter(assigned_to = self.request.user)
