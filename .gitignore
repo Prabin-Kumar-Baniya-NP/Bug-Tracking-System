@@ -3,3 +3,4 @@ bug-tracking-env/
 mysite/.env
 __pycache__
 db.sqlite3
+mysite/static/images
