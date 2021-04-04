@@ -36,6 +36,7 @@ class Ticket(models.Model):
     public_view = models.BooleanField(default=False)
     product_name = models.ForeignKey(Product, on_delete=models.CASCADE, default= None)
     submitted_by = models.ForeignKey(User, on_delete=models.CASCADE, default = None)
+    assigned_to = models.ManyToManyField(User, blank = True, related_name= "User_assigned")
 
     def __str__(self):
         return self.title
