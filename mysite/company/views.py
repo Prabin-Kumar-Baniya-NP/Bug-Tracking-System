@@ -12,7 +12,7 @@ User = get_user_model()
 @login_required
 def companyCreationView(request):
     if request.method == "POST":
-        form = CompanyCreationForm(request.user.id, request.POST)
+        form = CompanyCreationForm(request.user.id, request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Company Created Successfully")

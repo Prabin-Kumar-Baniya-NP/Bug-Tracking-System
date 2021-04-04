@@ -1,7 +1,9 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
     {{ object.name }}
-    
+    {% if object.logo %}
+        <img src = {{ object.logo.url }} height = 150, width = 150>
+    {% endif %}
     {% if user in object.administrator.all %}
         <a href = {% url "company:company-updation" object.id %}>Update Details </a>
          <a href = {% url "company:company-deletion" object.id %}>Delete Company </a>
