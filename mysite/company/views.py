@@ -11,6 +11,9 @@ User = get_user_model()
 
 @login_required
 def companyCreationView(request):
+    """
+    This view handles the get and post method of company creation.
+    """
     if request.method == "POST":
         form = CompanyCreationForm(request.user.id, request.POST, files=request.FILES)
         if form.is_valid():
@@ -27,6 +30,9 @@ def companyCreationView(request):
         return render(request,  "company/company-creation-page.html", context)
 
 class CompanyListView(LoginRequiredMixin, generic.ListView):
+    """
+    This view will list all the company associated with the user
+    """
     model = Company
     template_name = "company/index.html"
 
@@ -38,11 +44,18 @@ class CompanyListView(LoginRequiredMixin, generic.ListView):
             return Company.objects.filter(administrator = self.request.user)
 
 class CompanyDetailView(LoginRequiredMixin, generic.DetailView):
+    """
+    This view displays all the company details of requested company.
+    Requires pk of Company for querying details
+    """
     model = Company
     template_name = "company/details.html"
 
 @login_required
 def companyUpdationView(request, company_id):
+    """
+    This view handles the get and post method of company updation form.
+    """
     requested_company = Company.objects.get(id = company_id)
     if request.user in requested_company.administrator.all():
         if request.method == "POST":
@@ -69,6 +82,9 @@ def companyUpdationView(request, company_id):
 
 @login_required
 def companyDeletionView(request, company_id):
+    """
+    This view handles the form which deletes the company object.
+    """
     requested_company = Company.objects.get(id = company_id)
     if request.user in requested_company.administrator.all():
         requested_company.delete()
