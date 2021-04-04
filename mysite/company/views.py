@@ -46,7 +46,7 @@ def companyUpdationView(request, company_id):
     requested_company = Company.objects.get(id = company_id)
     if request.user in requested_company.administrator.all():
         if request.method == "POST":
-            form = CompanyUpdationForm(company_id, request.POST, instance = requested_company)
+            form = CompanyUpdationForm(company_id, request.POST,  files=request.FILES, instance = requested_company)
             if request.user in requested_company.administrator.all():
                 if form.is_valid():
                     form.save()
