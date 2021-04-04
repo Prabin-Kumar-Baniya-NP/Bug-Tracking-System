@@ -10,6 +10,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 @login_required
 def teamCreationView(request):
+    """
+    This view handles the get and post request of Team Creation form.
+    """
     if request.method == "POST":
         form = TeamCreationForm(request.user.id, request.POST)
         if form.is_valid():
@@ -23,6 +26,9 @@ def teamCreationView(request):
         return render(request,  "team/team-creation-page.html", context)
 
 class TeamListView(LoginRequiredMixin, generic.ListView):
+    """
+    This view list the team objects associated with the user.
+    """
     model = Team
     template_name = "team/index.html"
 
@@ -31,11 +37,18 @@ class TeamListView(LoginRequiredMixin, generic.ListView):
         return Team.objects.filter(administrator = self.request.user.id).union(user_assigned_team)
 
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):
+    """
+    This view provides the details of Team object
+    Requires pk for Team for querying the database.
+    """
     model = Team
     template_name = "team/details.html"
 
 @login_required
 def teamUpdationView(request, team_id):
+    """
+    This view handles the get and post method of request for Team Updation Form.
+    """
     requested_team = Team.objects.get(id = team_id)
     if request.user in requested_team.administrator.all():
         if request.method == "POST":
@@ -62,6 +75,10 @@ def teamUpdationView(request, team_id):
 
 @login_required
 def teamDeletionView(request, team_id):
+    """
+    This view deletes the team object
+    Requires pk of Team for deletion.
+    """
     requested_team = Team.objects.get(id = team_id)
     if request.user in requested_team.administrator.all():
         requested_team.delete()
