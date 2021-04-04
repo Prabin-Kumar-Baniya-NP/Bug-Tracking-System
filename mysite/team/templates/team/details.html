@@ -1,6 +1,13 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-    {{ object.name }}
+    {{ object.name }} <br>
+    {{ object.description }} <br>
+    {{ object.product }} <br>
+    {{ object.created_on }} <br>
+    {% for admin in object.administrator.all %}
+        {{ admin }}
+    {% endfor %}
+
     
     {% if user in object.administrator.all %}
         <a href = {% url "team:team-updation" object.id %}>Update Details </a>

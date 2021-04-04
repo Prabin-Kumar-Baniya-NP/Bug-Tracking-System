@@ -1,7 +1,13 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-    {{ object.name }}
-    
+    {{ object.name }} <br>
+    {{ object.description }} <br>
+    {{ object.team }} <br>
+    {{ object.created_on }} <br>
+    Administrator:
+    {% for admin in object.administrator.all %}
+        {{ admin }}
+    {% endfor %}
     {% if user in object.administrator.all %}
         <a href = {% url "designation:designation-updation" object.id %}>Update Details </a>
          <a href = {% url "designation:designation-deletion" object.id %}>Delete Designation </a>
