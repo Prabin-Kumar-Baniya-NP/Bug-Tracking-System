@@ -17,7 +17,7 @@ User = get_user_model()
 @login_required
 def report_bug(request):
     if request.method == "POST":
-        form = BugReportForm(request.user.id, request.POST)
+        form = BugReportForm(request.user.id, request.POST, files = request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Bug Reported Successfully")
@@ -67,7 +67,7 @@ def ticketUpdation(request, ticket_id):
     adminStatus = request.user.administratorStatus
     if True in adminStatus.values():
         if request.method == "POST":
-            form = TicketUpdationForm(request.user.id,request.POST, instance = Ticket.objects.get(id = ticket_id))
+            form = TicketUpdationForm(request.user.id,request.POST, files = request.FILES, instance = Ticket.objects.get(id = ticket_id))
             if form.is_valid():
                 form.save()
                 messages.success(request, "Ticket Details Updated Successfully")

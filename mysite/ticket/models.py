@@ -1,7 +1,9 @@
+import os
 from django.db import models
 from ticket.ticket_number import ticket_number_generator
 from product.models import Product
 from django.utils import timezone
+from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -43,3 +45,33 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.title
+
+@receiver(models.signals.post_delete, sender=Ticket)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from Ticket
+    when corresponding `Ticket` object is deleted.
+    """
+    if instance.screenshot:
+        if os.path.isfile(instance.screenshot.path):
+            os.remove(instance.screenshot.path)
+
+@receiver(models.signals.pre_save, sender=Ticket)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Deletes old file from Ticket
+    when corresponding `screenshot` object is updated
+    with new file.
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_screenshot = Ticket.objects.get(pk=instance.pk).screenshot
+    except Ticket.DoesNotExist:
+        return False
+
+    new_screenshot = instance.screenshot
+    if not old_screenshot == new_screenshot:
+        if os.path.isfile(old_screenshot.path):
+            os.remove(old_screenshot.path)

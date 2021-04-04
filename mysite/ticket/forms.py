@@ -8,7 +8,7 @@ User = get_user_model()
 class BugReportForm(ModelForm):
     class Meta:
         model = Ticket
-        fields = ['title', 'description',  'product_name', 'submitted_by']
+        fields = ['title', 'description',  'product_name', 'submitted_by', 'screenshot']
     
     def __init__(self, requested_user_id, *args, **kwargs):
         super(BugReportForm, self).__init__(*args, **kwargs)

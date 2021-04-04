@@ -1,6 +1,17 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-{{ object.title }}
+{{ object.title }}<br>
+{{ object.description }}<br>
+{{ object.ticket_number }}<br>
+{{ object.ticket_status }}<br>
+{{ object.severity_level }}<br>
+{{ object.priority_level }}<br>
+{{ object.product_name }}<br>
+{{ object.submitted_by }}<br>
+{{ object.submitted_on }}<br>
+{% if object.screenshot %}
+        <img src = {{ object.screenshot.url }} height = 150, width = 150> <br>
+{% endif %}
 {% if True in user.administratorStatus.values%}
     <a href = {% url "ticket:update-ticket" object.id%}>Update</a>
 {% endif %}
