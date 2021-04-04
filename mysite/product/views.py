@@ -9,6 +9,9 @@ from product.models import Product
 
 @login_required
 def productCreationView(request):
+    """
+    This view handles the get and post method of product creation form.
+    """
     if request.method == "POST":
         form = ProductCreationForm(request.user.id, request.POST, files=request.FILES)
         if form.is_valid():
@@ -22,6 +25,9 @@ def productCreationView(request):
         return render(request,  "product/product-creation-page.html", context)
 
 class ProductListView(LoginRequiredMixin, generic.ListView):
+    """
+    This view gives the list of product associated to the user.
+    """
     model = Product
     template_name = "product/index.html"
 
@@ -30,11 +36,18 @@ class ProductListView(LoginRequiredMixin, generic.ListView):
         return Product.objects.filter(administrator = self.request.user.id).union(user_assigned_product)
 
 class ProductDetailView(LoginRequiredMixin, generic.DetailView):
+    """
+    This view gives the details of product requested by user
+    Requires pk of Product for querying the database.
+    """
     model = Product
     template_name = "product/details.html"
 
 @login_required
 def productUpdationView(request, product_id):
+    """
+    This view handles the get and post method of product updation form.
+    """
     requested_product = Product.objects.get(id = product_id)
     if request.user in requested_product.administrator.all():
         if request.method == "POST":
@@ -61,6 +74,9 @@ def productUpdationView(request, product_id):
 
 @login_required
 def productDeletionView(request, product_id):
+    """
+    This view deletes the product object.
+    """
     requested_product = Product.objects.get(id = product_id)
     if request.user in requested_product.administrator.all():
         requested_product.delete()
