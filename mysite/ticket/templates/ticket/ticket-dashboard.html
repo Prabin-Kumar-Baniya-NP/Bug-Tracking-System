@@ -1,5 +1,24 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-{{ ticket }}
+{{ ticket.title }}<br>
+{{ ticket.description }}<br>
+{{ ticket.ticket_number }}<br>
+{{ ticket.ticket_status }}<br>
+{{ ticket.severity_level }}<br>
+{{ ticket.priority_level }}<br>
+{{ ticket.product_name }}<br>
+{{ ticket.submitted_by }}<br>
+{{ ticket.submitted_on }}<br>
+{% if ticket.screenshot %}
+        <img src = {{ ticket.screenshot.url }} height = 150, width = 150> <br>
+{% endif %}
+Assigned to: 
+{% if ticket.assigned_to %}
+    {% for user in ticket.assigned_to.all %}
+        {{ user }}
+    {% endfor %}
+{% else %}
+    Nobody is assigned to this ticket
+{% endif %}
 {% endblock section %}
 
