@@ -10,7 +10,7 @@ from product.models import Product
 @login_required
 def productCreationView(request):
     if request.method == "POST":
-        form = ProductCreationForm(request.user.id, request.POST)
+        form = ProductCreationForm(request.user.id, request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Product Added Successfully")
@@ -38,7 +38,7 @@ def productUpdationView(request, product_id):
     requested_product = Product.objects.get(id = product_id)
     if request.user in requested_product.administrator.all():
         if request.method == "POST":
-            form = ProductUpdationForm(request.user.id, product_id, request.POST, instance = requested_product)
+            form = ProductUpdationForm(request.user.id, product_id, request.POST, files=request.FILES, instance = requested_product)
             if request.user in requested_product.administrator.all():
                 if form.is_valid():
                     form.save()

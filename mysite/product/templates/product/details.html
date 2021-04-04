@@ -1,7 +1,16 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-    {{ object.name }}
-    
+    {{ object.name }} <br>
+    {% if object.logo %}
+    <img src = {{ object.logo.url }} height = 150 width = 150> <br>
+    {% endif %}
+    {{ object.description }} <br>
+    {{ object.company }} <br>
+    {{ object.date_of_launch }} <br>
+    Administrator:
+    {% for admin in object.administrator.all %}
+        {{ admin }}
+    {% endfor %}
     {% if user in object.administrator.all %}
         <a href = {% url "product:product-updation" object.id %}>Update Details </a>
          <a href = {% url "product:product-deletion" object.id %}>Delete Product </a>
