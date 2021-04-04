@@ -1,7 +1,7 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
 {% for ticket in ticket_list%}
-    {{ ticket }}
+    <a href = {% url "ticket:ticket-dashboard" ticket.id %}>{{ ticket }} </a>
 {% endfor %}
 {% endblock section %}
 

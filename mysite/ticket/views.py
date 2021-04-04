@@ -91,3 +91,11 @@ class AssignedTicketsListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return Ticket.objects.filter(assigned_to = self.request.user)
+
+class AssignedTicketDashboardDetailView(LoginRequiredMixin, generic.ListView):
+    model = Ticket
+    template_name = "ticket/ticket-dashboard.html"
+    context_object_name = 'ticket'
+
+    def get_queryset(self):
+        return Ticket.objects.get(id = self.kwargs['pk'], assigned_to = self.request.user)
