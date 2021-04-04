@@ -22,4 +22,24 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     """
     if instance.logo:
         if os.path.isfile(instance.logo.path):
-            os.remove(instance.logo.path) 
+            os.remove(instance.logo.path)
+
+@receiver(models.signals.pre_save, sender=Company)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Deletes old file from Company
+    when corresponding `Logo` object is updated
+    with new file.
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_logo = Company.objects.get(pk=instance.pk).logo
+    except Company.DoesNotExist:
+        return False
+
+    new_logo = instance.logo
+    if not old_logo == new_logo:
+        if os.path.isfile(old_logo.path):
+            os.remove(old_logo.path)
