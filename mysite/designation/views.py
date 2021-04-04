@@ -9,6 +9,9 @@ from designation.models import Designation
 
 @login_required
 def designationCreationView(request):
+    """
+    This view handles the get and post method of request for Designation Creation Form
+    """
     if request.method == "POST":
         form = DesignationCreationForm(request.user.id, request.POST)
         if form.is_valid():
@@ -22,6 +25,9 @@ def designationCreationView(request):
         return render(request,  "designation/designation-creation-page.html", context)
 
 class DesignationListView(LoginRequiredMixin, generic.ListView):
+    """
+    This view lists all the designations of the requested user.
+    """
     model = Designation
     template_name = "designation/index.html"
 
@@ -30,11 +36,18 @@ class DesignationListView(LoginRequiredMixin, generic.ListView):
         return Designation.objects.filter(administrator = self.request.user.id).union(user_assigned_designation)
 
 class DesignationDetailView(LoginRequiredMixin, generic.DetailView):
+    """
+    This view displays the details of the designation object reqested by the user
+    Requires the pk of Designation Object.
+    """
     model = Designation
     template_name = "designation/details.html"
 
 @login_required
 def designationUpdationView(request, designation_id):
+    """
+    This view handles the get and post method request of designation updation form.
+    """
     requested_designation = Designation.objects.get(id = designation_id)
     if request.user in requested_designation.administrator.all():
         if request.method == "POST":
@@ -61,6 +74,9 @@ def designationUpdationView(request, designation_id):
 
 @login_required
 def designationDeletionView(request, designation_id):
+    """
+    This view deletes the designation object requested by the user through designation_id
+    """
     requested_designation = Designation.objects.get(id = designation_id)
     if request.user in requested_designation.administrator.all():
         requested_designation.delete()
