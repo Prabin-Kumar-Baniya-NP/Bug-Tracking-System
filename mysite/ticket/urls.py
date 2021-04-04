@@ -9,4 +9,5 @@ urlpatterns = [
     path("review-tickets/", views.reviewTickets, name = "review-tickets"),
     path("ticket-details/<int:pk>", views.TicketDetailView.as_view(), name= "ticket-details"),
     path("ticket-updation/<int:ticket_id>", views.ticketUpdation, name = "update-ticket"),
+    path("assigned-tickets/", views.AssignedTicketsListView.as_view(), name = "assigned-tickets"),
 ]
