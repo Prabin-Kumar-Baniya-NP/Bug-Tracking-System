@@ -1,1 +1,1 @@
-web: gunicorn --chdir /mysite mysite.wsgi
+web: gunicorn --chdir /home/Bug-Tracking-System/mysite mysite.wsgi
