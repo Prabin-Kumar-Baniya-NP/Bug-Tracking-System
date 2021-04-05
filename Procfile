@@ -1,1 +1,1 @@
-web: gunicorn --chdir /Bug-Tracking-System/mysite/ mysite.wsgi
+web: gunicorn --pythonpath mysite mysite.wsgi
