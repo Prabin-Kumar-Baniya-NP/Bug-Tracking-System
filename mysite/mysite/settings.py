@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,16 +84,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config("NAME"),
-        'USER': config("USER"),
-        'HOST': config("HOST"),
-        'PORT': config("PORT"),
-        'PASSWORD': config("PASSWORD"),
-    }
-}
+DATABASES['default'] = dj_database_url.parse(config("DATABASE_URL"), conn_max_age=600)
 
 
 # Password validation
