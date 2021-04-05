@@ -4,3 +4,4 @@ mysite/.env
 __pycache__
 db.sqlite3
 mysite/static/images
+mysite/staticfiles
