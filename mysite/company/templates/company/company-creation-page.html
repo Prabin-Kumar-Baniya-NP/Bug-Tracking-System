@@ -1,8 +1,50 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
+<div class="form-container">
 <form action = "" method = "POST" enctype="multipart/form-data">
 {% csrf_token %}
-{{ form.as_p }}
-<button type = "submit" value = "Submit">Create Company</button>
+<div class="form-group row">
+    {{ form.name.errors }}
+    <label for="{{ form.name.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Name</label>
+    {{ form.name }}
+</div>
+
+<div class="form-group row">
+    {{ form.description.errors }}
+    <label for="{{ form.description.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Description</label>
+    {{ form.description }}
+</div>
+
+<div class="form-group row">
+    {{ form.administrator.errors }}
+    <label for="{{ form.uadministratorid_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Administrator</label>
+    {{ form.administrator }}
+</div>
+
+<div class="form-group row">
+    {{ form.Address.errors }}
+    <label for="{{ form.Address.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Address</label>
+    {{ form.Address }}
+</div>
+
+<div class="form-group row">
+    {{ form.date_of_establishment.errors }}
+    <label for="{{ form.username.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Date of Establishment</label>
+    {{ form.date_of_establishment }}
+</div>
+
+<div class="form-group row">
+    {{ form.official_email.errors }}
+    <label for="{{ form.official_email.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Official Email</label>
+    {{ form.official_email }}
+</div>
+
+<div class="form-group row">
+    {{ form.logo.errors }}
+    <label for="{{ form.username.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Logo</label>
+    {{ form.logo }}
+</div>
+<button type = "submit" value = "Submit" class = "btn btn-success">Create Company</button>
 </form>
+</div>
 {% endblock %}

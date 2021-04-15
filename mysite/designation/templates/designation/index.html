@@ -1,13 +1,20 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
+<div class ="col-12 list-container">
 {% if designation_list %}
+<ul>
     {% for designation in designation_list %}
-        <a href = {% url "designation:designation-details" designation.id %}>{{designation}}</a>
+        <li><a href = {% url "designation:designation-details" designation.id %}>{{designation}}</a> </li>
     {% endfor %}
 {% elif user.designation_assigned %}
-    {{ user.designation_assigned }}
+    <li>{{ user.designation_assigned }} </li>
 {% else %}
     You are not assigned in any designation.
+    </ul>
 {% endif %}
-  <a href = {% url "designation:designation-creation" %}>Add Designation</a>
+</div>
+<div class = "col-12 button-container">
+<button type="button" class="btn btn-success"><a href = {% url "designation:designation-creation" %}>Add Designation</a></button>
+</div>
+  
 {% endblock %}

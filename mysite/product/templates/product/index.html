@@ -1,13 +1,20 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
+<div class ="col-12 list-container">
 {% if product_list %}
+ <ul>
     {% for product in product_list %}
-        <a href = {% url "product:product-details" product.id %}>{{product}}</a>
+        <li><a href = {% url "product:product-details" product.id %}>{{product}}</a> </li>
     {% endfor %}
 {% elif user.product_assigned %}
-    {{ user.product_assigned }}
+   <li> {{ user.product_assigned }} </li>
 {% else %}
     You are not assigned in any product or you haven't created your own product
+    </ul>
 {% endif %}
-<a href = {% url "product:product-creation" %}>Add Product </a>
+</div>
+<div class = "col-12 button-container">
+<button type="button" class="btn btn-success"><a href = {% url "product:product-creation" %}>Add Product </a></button>
+</div>
+
 {% endblock %}

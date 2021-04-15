@@ -1,8 +1,33 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-<form action = "" method = "POST">
+<div class="form-container">
+<form action = "" method = "POST" enctype="multipart/form-data">
 {% csrf_token %}
-{{ form.as_p }}
-<button type = "submit" value = "Submit">Add Designation</button>
+<div class="form-group row">
+    {{ form.name.errors }}
+    <label for="{{ form.name.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Name</label>
+    {{ form.name }}
+</div>
+
+<div class="form-group row">
+    {{ form.description.errors }}
+    <label for="{{ form.description.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Description</label>
+    {{ form.description }}
+</div>
+
+<div class="form-group row">
+    {{ form.team.errors }}
+    <label for="{{ form.team.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Team</label>
+    {{ form.team }}
+</div>
+
+<div class="form-group row">
+    {{ form.administrator.errors }}
+    <label for="{{ form.administrator.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Administrator</label>
+    {{ form.administrator }}
+</div>
+
+<button type = "submit" value = "Submit" class = "btn btn-success">Create New Designation</button>
 </form>
+</div>
 {% endblock %}

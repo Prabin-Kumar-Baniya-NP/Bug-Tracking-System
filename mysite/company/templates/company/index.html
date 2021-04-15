@@ -1,13 +1,19 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-{% if company_list %}
-    {% for company in company_list %}
-        <a href = {% url "company:company-details" company.id %}>{{company}}</a>
+<div class ="col-12 list-container">
+    {% if company_list %}
+    <ul>
+        {% for company in company_list %}
+       <li> <a href = {% url "company:company-details" company.id %}>{{company.name}}</a> </li>
     {% endfor %}
 {% elif user.company_associated %}
-    {{ user.company_associated }}
+   <li> {{ user.company_associated }} </li>
+    </ul>
 {% else %}
     You are not added in any company
 {% endif %}
-<a href = {% url "company:company-creation" %}>Create Company </a>
+</div>
+<div class = "col-12 button-container">
+<button type="button" class="btn btn-primary"><a href = {% url "company:company-creation" %}>Create Company</a></button>
+</div>
 {% endblock %}

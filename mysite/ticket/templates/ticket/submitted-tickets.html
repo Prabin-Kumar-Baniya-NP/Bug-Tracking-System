@@ -1,15 +1,16 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-
+<div class ="col-12 list-container">
+<ul>
 {% for ticket in page_obj %}
-    {{ticket}}
+    <li>{{ticket}} </li>
 {% endfor %}
-
+</ul>
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        <button type="button" class="btn btn-outline-success paginator-button"> <a href="?page=1">&laquo; first</a></button>
+        <button type="button" class="btn btn-outline-success paginator-button"><a href="?page={{ page_obj.previous_page_number }}">Previous</a></button>    
         {% endif %}
 
         <span class="current">
@@ -17,12 +18,13 @@
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        <button type="button" class="btn btn-outline-success paginator-button"><a href="?page={{ page_obj.next_page_number }}">Next</a></button>
+        <button type="button" class="btn btn-outline-success paginator-button"><a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></button>
+            
         {% endif %}
     </span>
 </div>
 
-
+</div>
 {% endblock section %}
 

@@ -1,8 +1,43 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
+<div class ="form-container">
 <form action= "" method = "POST">
      {% csrf_token %}
-     {{ form.as_p }}
-    <input type = "submit" value = "Update Info">
+<div class="form-group row">
+    {{ form.username.errors }}
+    <label for="{{ form.username.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Username</label>
+    {{ form.username }}
+</div>
+
+<div class="form-group row">
+    {{ form.last_name.errors }}
+    <label for="{{ form.last_name.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Last Name</label>
+    {{ form.last_name }}
+</div>
+
+<div class="form-group row">
+    {{ form.email.errors }}
+    <label for="{{ form.email.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Email</label>
+    {{ form.email }}
+</div>
+
+<div class="form-group row">
+    {{ form.address.errors }}
+    <label for="{{ form.address.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Address</label>
+    {{ form.address }}
+</div>
+<div class="form-group row">
+    {{ form.birth_date.errors }}
+    <label for="{{ form.birth_date.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Date of Birth</label>
+    {{ form.birth_date }}
+</div>
+
+<div class="form-group row">
+    {{ form.about_me.errors }}
+    <label for="{{ form.about_me.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">About Me</label>
+    {{ form.about_me }}
+</div>
+    <button type="submit" class ="btn btn-success">Update Profile </button>
 </form>
+</div>
 {% endblock %}

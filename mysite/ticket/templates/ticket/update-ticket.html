@@ -1,8 +1,69 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
+<div class = "form-container">
 <form action = "" method = "POST" enctype="multipart/form-data">
 {% csrf_token %}
-{{ form.as_p }}
-<input type = "submit" value = "Update">
+<div class="form-group row">
+    {{ form.title.errors }}
+    <label for="{{ form.title.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Bug Title</label>
+    {{ form.title }}
+</div>
+
+<div class="form-group row">
+    {{ form.description.errors }}
+    <label for="{{ form.description.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Description</label>
+    {{ form.description }}
+</div>
+
+<div class="form-group row">
+    {{ form.ticket_status.errors }}
+    <label for="{{ form.ticket_status.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Ticket Status</label>
+    {{ form.ticket_status }}
+</div>
+
+<div class="form-group row">
+    {{ form.severity_level.errors }}
+    <label for="{{ form.severity_level.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Severity Level</label>
+    {{ form.severity_level }}
+</div>
+
+<div class="form-group row">
+    {{ form.priority_level.errors }}
+    <label for="{{ form.priority_level.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Priority Level</label>
+    {{ form.priority_level }}
+</div>
+
+<div class="form-group row">
+    {{ form.public_view.errors }}
+    <label for="{{ form.public_view.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Public View</label>
+    {{ form.public_view }}
+</div>
+
+<div class="form-group row">
+    {{ form.product_name.errors }}
+    <label for="{{ form.product_name.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Product Name</label>
+    {{ form.product_name }}
+</div>
+
+<div class="form-group row">
+    {{ form.submitted_by.errors }}
+    <label for="{{ form.submitted_by.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Submitted By</label>
+    {{ form.submitted_by }}
+</div>
+
+<div class="form-group row">
+    {{ form.screenshot.errors }}
+    <label for="{{ form.screenshot.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Screenshot</label>
+    {{ form.screenshot }}
+</div>
+
+<div class="form-group row">
+    {{ form.assigned_to.errors }}
+    <label for="{{ form.assigned_to.id_for_label }}" class="col-sm-6 col-md-4 col-lg-2 col-form-label">Assigned To</label>
+    {{ form.assigned_to }}
+</div>
+<button type= "submit" class ="m-1 btn btn-success">Apply Changes</button>
+</div>
+
 </form>
 {% endblock section %}
