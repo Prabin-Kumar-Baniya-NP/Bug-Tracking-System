@@ -1,20 +1,39 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-    {% if object.logo %}
+<div class = "dashboard-container">
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-4 image-container">
+     {% if object.logo %}
         <img src = {{ object.logo.url }} height = 150, width = 150> <br>
     {% endif %}
-    {{ object.name }} <br>
-    {{ object.description }} <br>
-    {{ object.address }} <br>
-    {{ object.official_email }} <br>
-    {{ object.date_of_establishment}} <br>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        Company Name: {{ object.name }} <br>
+    About Company: {{ object.description }} <br>
+    Address: {{ object.address }} <br>
+    Official Email: {{ object.official_email }} <br>
+    Established On: {{ object.date_of_establishment}} <br>
     Administrator:
     {% for admin in object.administrator.all %}
         {{ admin }} 
     {% endfor %} <br>
     {% if user in object.administrator.all %}
-        <a href = {% url "company:company-updation" object.id %}>Update Details </a>
-         <a href = {% url "company:company-deletion" object.id %}>Delete Company </a>
-           <a href = {% url "user:add-user-in-company" object.id %}>Add User</a>
+    <div class="button-container">
+    <button class = "btn btn-primary"> <a href = {% url "company:company-updation" object.id %}>Update Details </a> </button>
+    <button class = "btn btn-danger"> <a href = {% url "company:company-deletion" object.id %}>Delete Company </a></button>
+    <button class = "btn btn-success"><a href = {% url "user:add-user-in-company" object.id %}>Add User</a> </button>
+    </div>
+           
     {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+    
+    
+    
 {% endblock section %}

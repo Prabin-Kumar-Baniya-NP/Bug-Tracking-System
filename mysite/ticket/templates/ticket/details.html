@@ -1,18 +1,51 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-{{ object.title }}<br>
-{{ object.description }}<br>
-{{ object.ticket_number }}<br>
-{{ object.ticket_status }}<br>
-{{ object.severity_level }}<br>
-{{ object.priority_level }}<br>
-{{ object.product_name }}<br>
-{{ object.submitted_by }}<br>
-{{ object.submitted_on }}<br>
+<div class = "dashboard-container">
+<div class = "row m-1 p-1">
+<div class = "col-12 col-md-6">
+<ul class="list-group list-group-flush">
+    <li class="list-group-item"><span class = "key">Ticket Tile</span> : <span class = "value">{{ object.title }}</span></li>
+    <li class="list-group-item"><span class="key">Ticket Number</span> : <span class="value">{{ object.ticket_number }}</span></li>
+    <li class="list-group-item"><span class="key">Ticket Status</span> : <span class="value">{{ object.ticket_status }}</span></li>
+    <li class="list-group-item"><span class="key">Severity Level</span> : <span class="value">{{ object.severity_level }}</span></li>
+    <li class="list-group-item"><span class="key">Priority Level</span> : <span class="value">{{ object.priority_level }}</span></li>
+    <li class="list-group-item"><span class="key">Product Name</span> : <span class="value">{{ object.product_name }}</span></li>
+    <li class="list-group-item"><span class="key">Submitted By</span> : <span class="value">{{ object.submitted_by }}</span></li>
+    <li class="list-group-item"><span class="key">Submitted On</span> : <span class="value">{{ object.submitted_on }}</span></li>
+  </ul>
+</div>
+<div class = "col-12 col-md-6">
+<p><b>Description </b> <br>
+{{ object.description }}</b>
+</div>
+</div>
+<div class = "row m-1 p-1">
+<div class="col-12 col-md-6">
+<div class="image-container">
 {% if object.screenshot %}
         <img src = {{ object.screenshot.url }} height = 150, width = 150> <br>
+{% else %}
+    No Screenshot Found
 {% endif %}
+</div>
+</div>
+<div class="col-12 col-md-6">
+<b>Assigned to </b><br>
+{% if object.assigned_to.all %}
+{% for user in object.assigned_to.all %}
+    {{ user }}
+{% endfor %}
+{% else %}
+    No user assigned to this ticket.
+{% endif %}
+</div>
+</div>
+<div class="row m-1 p-1">
+<div class="col-12">
 {% if True in user.administratorStatus.values%}
-    <a href = {% url "ticket:update-ticket" object.id%}>Update</a>
+<div class="button-container"> <button class ="btn btn-primary"><a href = {% url "ticket:update-ticket" object.id%}>Update</a></button></div>
 {% endif %}
+</div>
+</div>
+</div>
 {% endblock section %}

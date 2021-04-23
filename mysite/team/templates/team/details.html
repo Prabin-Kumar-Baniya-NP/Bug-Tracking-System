@@ -1,17 +1,39 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-    {{ object.name }} <br>
-    {{ object.description }} <br>
-    {{ object.product }} <br>
-    {{ object.created_on }} <br>
+<div class = "dashboard-container">
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-4 image-container">
+     {% if object.product.logo %}
+        <img src = {{ object.product.logo.url }} height = 150, width = 150> <br>
+    {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+
+ <h5 class="card-title">{{ object.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ object.product }}</h6>
+    <p class="card-text">
+    Team Description: {{ object.description }} <br>
+    Created On: {{ object.created_on }} <br>
+    Administrator: 
     {% for admin in object.administrator.all %}
         {{ admin }}
     {% endfor %}
-
-    
-    {% if user in object.administrator.all %}
-        <a href = {% url "team:team-updation" object.id %}>Update Details </a>
-         <a href = {% url "team:team-deletion" object.id %}>Delete Team </a>
-         <a href = {% url "user:assign-team-to-user" object.id %}>Add User</a>
+    </p>
+     {% if user in object.administrator.all %}
+     <div class="button-container">
+     <button class = "btn btn-primary"><a href = {% url "team:team-updation" object.id %}>Update Details </a></button>
+        <button class = "btn btn-danger"><a href = {% url "team:team-deletion" object.id %}>Delete Team </a></button>
+        <button class = "btn btn-success"><a href = {% url "user:assign-team-to-user" object.id %}>Add User</a></button>
+         
+         
+         </div>
     {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
 {% endblock section %}

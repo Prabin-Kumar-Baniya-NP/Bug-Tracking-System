@@ -34,7 +34,7 @@ def report_bug(request):
 
 class SubmittedTicketsListView(LoginRequiredMixin, generic.ListView):
     model = Ticket
-    paginate_by = 2
+    paginate_by = 10
     template_name = "ticket/submitted-tickets.html"
 
     def get_queryset(self):
@@ -86,7 +86,7 @@ def ticketUpdation(request, ticket_id):
 
 class AssignedTicketsListView(LoginRequiredMixin, generic.ListView):
     model = Ticket
-    paginate_by = 2
+    paginate_by = 10
     template_name = "ticket/assigned-tickets.html"
 
     def get_queryset(self):

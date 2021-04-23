@@ -1,16 +1,38 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-    {{ object.name }} <br>
-    {{ object.description }} <br>
-    {{ object.team }} <br>
-    {{ object.created_on }} <br>
+
+
+<div class = "dashboard-container">
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-4 image-container">
+     {% if object.product.logo %}
+        <img src = {{ object.product.logo.url }} height = 150, width = 150> <br>
+    {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+
+ <h5 class="card-title">{{ object.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ object.team }}</h6>
+    <p class="card-text">
+    About Your Role: {{ object.description }} <br>
+    Created On: {{ object.created_on }} <br>
     Administrator:
     {% for admin in object.administrator.all %}
         {{ admin }}
     {% endfor %}
-    {% if user in object.administrator.all %}
-        <a href = {% url "designation:designation-updation" object.id %}>Update Details </a>
-         <a href = {% url "designation:designation-deletion" object.id %}>Delete Designation </a>
-         <a href = {% url "user:assign-designation-to-user" object.id %}>Add User</a>
+    </p>
+     {% if user in object.administrator.all %}
+     <div class="button-container">
+     <button class = "btn btn-primary"><a href = {% url "designation:designation-updation" object.id %}>Update Details </a></button>
+        <button class = "btn btn-danger"><a href = {% url "designation:designation-deletion" object.id %}>Delete Designation </a></button>
+        <button class = "btn btn-success"><a href = {% url "user:assign-designation-to-user" object.id %}>Add User</a></button>
+         </div>
     {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 {% endblock section %}

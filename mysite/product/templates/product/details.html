@@ -1,19 +1,56 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-    {{ object.name }} <br>
-    {% if object.logo %}
+<div class = "dashboard-container">
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-4 image-container">
+     {% if object.logo %}
     <img src = {{ object.logo.url }} height = 150 width = 150> <br>
     {% endif %}
-    {{ object.description }} <br>
-    {{ object.company }} <br>
-    {{ object.date_of_launch }} <br>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+      Product Name: {{ object.name }} <br>
+    About Product: {{ object.description }} <br>
+    Company: {{ object.company }} <br>
+    Date of Launch: {{ object.date_of_launch }} <br>
     Administrator:
     {% for admin in object.administrator.all %}
         {{ admin }}
     {% endfor %}
-    {% if user in object.administrator.all %}
-        <a href = {% url "product:product-updation" object.id %}>Update Details </a>
-         <a href = {% url "product:product-deletion" object.id %}>Delete Product </a>
-         <a href = {% url "user:assign-product-to-user" object.id %}>Add User</a>
+   {% if user in object.administrator.all %}
+   <div class="button-container">
+   <button class = "btn btn-primary"><a href = {% url "product:product-updation" object.id %}>Update Details </a> </button>
+   <button class = "btn btn-danger"> <a href = {% url "product:product-deletion" object.id %}>Delete Product </a></button>
+   <button class = "btn btn-success">    <a href = {% url "user:assign-product-to-user" object.id %}>Add User</a> </button>
+        </div>
+        
+      
     {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
 {% endblock section %}
