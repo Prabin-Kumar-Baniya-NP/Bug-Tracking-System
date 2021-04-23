@@ -40,6 +40,10 @@ class SubmittedTicketsListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return Ticket.objects.filter(submitted_by = self.request.user)
 
+class SubmittedTicketDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Ticket
+    template_name = "ticket/submitted-ticket-dashboard.html"
+
 @login_required
 def reviewTickets(request):
     adminStatus = request.user.administratorStatus

@@ -1,0 +1,38 @@
+{% extends 'mysite/base.html' %}
+{% block section %}
+<div class = "dashboard-container">
+<div class = "row m-1 p-1">
+<div class = "col-12 col-md-6">
+<ul class="list-group list-group-flush">
+    <li class="list-group-item"><span class = "key">Ticket Tile</span> : <span class = "value">{{ ticket.title }}</span></li>
+    <li class="list-group-item"><span class="key">Ticket Number</span> : <span class="value">{{ ticket.ticket_number }}</span></li>
+    <li class="list-group-item"><span class="key">Ticket Status</span> : <span class="value">{{ ticket.ticket_status }}</span></li>
+    <li class="list-group-item"><span class="key">Severity Level</span> : <span class="value">{{ ticket.severity_level }}</span></li>
+    <li class="list-group-item"><span class="key">Priority Level</span> : <span class="value">{{ ticket.priority_level }}</span></li>
+    <li class="list-group-item"><span class="key">Product Name</span> : <span class="value">{{ ticket.product_name }}</span></li>
+    <li class="list-group-item"><span class="key">Submitted By</span> : <span class="value">{{ ticket.submitted_by }}</span></li>
+    <li class="list-group-item"><span class="key">Submitted On</span> : <span class="value">{{ ticket.submitted_on }}</span></li>
+  </ul>
+</div>
+<div class = "col-12 col-md-6">
+<p><b>Description </b> <br>
+{{ ticket.description }}</b>
+</div>
+</div>
+<div class = "row m-1 p-1">
+<div class="col-12 col-md-6">
+<div class="image-container">
+{% if ticket.screenshot %}
+        <img src = {{ ticket.screenshot.url }} height = 150, width = 150> <br>
+{% else %}
+    No Screenshot Found
+{% endif %}
+</div>
+</div>
+<div class="col-12 col-md-6">
+
+</div>
+</div>
+</div>
+{% endblock section %}
+

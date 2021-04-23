@@ -3,7 +3,8 @@
 <div class ="col-12 list-container">
 <ul>
 {% for ticket in page_obj %}
-    <li>{{ticket}} </li>
+<li><a href = "{% url "ticket:submitted-ticket-details" ticket.id %}">{{ticket}} </a></li>
+    
 {% endfor %}
 </ul>
 <div class="pagination">
