@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import generic 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from ticket.models import Ticket
 
 def index(request):
     """
@@ -173,7 +174,18 @@ def update_profile(request):
 
 @login_required
 def dashboard(request):
-    return render(request, "user/dashboard.html", {})
+    context = {
+        'tickets_submitted_count' : Ticket.objects.filter(ticket_status = "SUB", submitted_by = request.user).count(),
+        'tickets_rejected_count' : Ticket.objects.filter(ticket_status = "REJ", submitted_by = request.user).count(),
+        'tickets_approved_count' : Ticket.objects.filter(ticket_status__contains = "A&", submitted_by = request.user).count(),
+        'tickets_postponed_count' : Ticket.objects.filter(ticket_status = "POS", submitted_by = request.user).count(),
+        'tickets_resolved_count' : Ticket.objects.filter(ticket_status = "RES", submitted_by = request.user).count(),
+        'tickets_closed_count' : Ticket.objects.filter(ticket_status = "CLO", submitted_by = request.user).count(),
+        'tickets_duplicate_count' : Ticket.objects.filter(ticket_status = "DUP", submitted_by = request.user).count(),
+        'tickets_assigned_count': Ticket.objects.filter(assigned_to = request.user).count(),
+
+    }
+    return render(request, "user/dashboard.html", context)
 
 @login_required
 def companyUnassociatedUserProfile(request,company_id):

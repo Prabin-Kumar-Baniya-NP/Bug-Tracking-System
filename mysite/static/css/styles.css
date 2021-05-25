@@ -15,7 +15,7 @@ body{
 }
 /* Navbar Starts here */
 .navbar {
-    background-color: #da2e00;
+    background-color: #B71C1C;
   }
   .navbar .navbar-brand {
     color: #faf3ec;
@@ -44,7 +44,7 @@ body{
     color: #fffdfb;
   }
   .navbar .navbar-nav .dropdown-menu {
-    background-color: #da2e00;
+    background-color: #B71C1C;
     border-color: #9e3215;
   }
   .navbar .navbar-nav .dropdown-menu .dropdown-item {
@@ -90,7 +90,7 @@ body{
   }
   /* Custom CSS */
   .main-color-bg{
-    background-color: #da2e00 !important;
+    background-color: #B71C1C !important;
     color: #ffffff !important;
   }
   .grey-background{

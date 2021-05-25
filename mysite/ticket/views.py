@@ -50,7 +50,7 @@ def reviewTickets(request):
     if True in adminStatus.values():
         user_assigned_product = [product.id for product in request.user.product_assigned.all()]
         user_admin_product = [product.id for product in Product.objects.filter(administrator = request.user)]
-        ticket_list = Ticket.objects.filter(product_name__in = user_admin_product + user_assigned_product, ticket_status = "SUB")
+        ticket_list = Ticket.objects.filter(product_name__in = user_admin_product + user_assigned_product)
         paginator = Paginator(ticket_list, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)

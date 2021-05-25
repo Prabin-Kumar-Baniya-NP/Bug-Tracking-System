@@ -7,4 +7,62 @@
     {% endfor %}
 </ul>
 {% endif %}
+<div class = "card-container d-flex flex-row flex-wrap">
+<div class="card m-1 text-primary">
+  <div class="card-body d-flex flex-column justify-content-center align-items-center">
+    <h1 class="card-title font-weight-bold">{{ tickets_submitted_count }}</h1>
+    <p class="card-text">Tickets Submitted</p>
+  </div>
+  </div>
+<div class="card m-1 text-danger"> 
+<div class="card-body d-flex flex-column justify-content-center align-items-center">
+    <h1 class="card-title font-weight-bold">{{ tickets_rejected_count}}</h1>
+    <p class="card-text">Tickets Rejected</p>
+  </div>
+</div>
+  
+<div class="card m-1 text-success"> 
+<div class="card-body d-flex flex-column justify-content-center align-items-center">
+    <h1 class="card-title font-weight-bold">{{ tickets_approved_count}} </h1>
+    <p class="card-text">Tickets Approved</p>
+  </div>
+</div>
+
+<div class="card m-1 text-dark">
+<div class="card-body d-flex flex-column justify-content-center align-items-center">
+    <h1 class="card-title font-weight-bold">{{ tickets_postponed_count}} </h1>
+    <p class="card-text">Tickets Postponed</p>
+  </div>
+ </div>
+  
+<div class="card m-1 text-success">
+<div class="card-body d-flex flex-column justify-content-center align-items-center">
+    <h1 class="card-title font-weight-bold">{{ tickets_resolved_count }} </h1>
+    <p class="card-text">Tickets Resolved</p>
+  </div>
+</div>
+  
+<div class="card m-1 text-secondary">
+ <div class="card-body d-flex flex-column justify-content-center align-items-center">
+    <h1 class="card-title font-weight-bold">{{ tickets_closed_count}} </h1>
+    <p class="card-text">Tickets Closed</p>
+  </div>
+</div>
+ 
+<div class="card m-1 text-warning">
+<div class="card-body d-flex flex-column justify-content-center align-items-center">
+    <h1 class="card-title font-weight-bold">{{ tickets_duplicate_count}}</h1>
+    <p class="card-text">Tickets Duplicated</p>
+  </div>
+</div>
+  
+<div class="card m-1 text-primary">
+ <div class="card-body d-flex flex-column justify-content-center align-items-center">
+    <h1 class="card-title font-weight-bold">{{ tickets_assigned_count}}</h1>
+    <p class="card-text">Tickets Assigned</p>
+  </div>
+</div>
+ 
+</div>
+
 {% endblock %}
