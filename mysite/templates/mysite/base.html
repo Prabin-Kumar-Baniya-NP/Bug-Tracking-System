@@ -19,20 +19,27 @@
 <body>
                             <!-- Navigation Starts Here-->
     <nav class="navbar navbar-expand-md">
-        <a class="navbar-brand" href="#"><span><i class="fas fa-bug"></i></span> Bug Tracker</a>
+        <a class="navbar-brand" href="{% url "user:index" %}"><span><i class="fas fa-bug"></i></span> Bug Tracker</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"><i class="fas fa-arrow-down" style="color: #ffffff;"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
+            {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url "user:dashboard" %}"><span><i class="fas fa-columns"></i></span> Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href={% url "ticket:report-bug" %}><span><i class="fas fa-exclamation-circle"></i></span> Report Bug</a>
+                    <a class="nav-link" href="{% url "ticket:report-bug" %}"><span><i class="fas fa-exclamation-circle"></i></span> Report Bug</a>
                 </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "user:sign-up" %}"><span><i class="fa fa-user-plus"></i></span> Sign up</a>
+                </li>
+            {% endif %}
             </ul>
+            {% if request.user.is_authenticated %}
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,6 +53,7 @@
                       </div>
                 </li>
             </ul>
+            {% endif %}
         </div>
     </nav>
                         <!-- Navigation Ends Here -->
@@ -60,8 +68,8 @@
   <section id="main">
         <div class="container-fluid">
             <div class="row">
+             {% if request.user.is_authenticated %}
                 <div class="col-12 col-md-4 col-lg-2">
-                {% if request.user.is_authenticated %}
                     <!--------------------------------------- Sidebar Starts Here -------------------------------------->
 <div class="list-group sidebar mt-3">
     <a href={% url 'company:company-list'%} class="list-group-item list-group-item-action">
@@ -83,9 +91,10 @@
                             <span class="icon"><i class="fas fa-hand-point-right"></i></span> Assigned Tickets </a>    
                             {% endif %}
 </div>
-{% endif %}
+
                     <!--------------------------------------- Sidebar Ends Here ---------------------------------------->
                 </div>
+                {% endif %}
                 <div class="col-12 col-md-8 col-lg-10 mt-3">
                     <section>
                 {% block section %} {% endblock %}

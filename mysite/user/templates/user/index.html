@@ -1,23 +1,36 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+
+<div class="index-form-container d-flex align-items-center justify-content-center">
+
+<div class="card" style="width: 70%;">
+  <img src="https://pixabay.com/get/g44b46b288e4c95698c29f012e71bd68449124e9b687490942f9998010df379d200ca08320247d3004193855bb3283c3e4924b0eb1a13268b2b95aac06432abda_1920.jpg" class="card-img-top">
+  <div class="card-body">
+    <h5 class="card-title">Enter the correct username and password for login</h5>
+    <div class="card-text">
+
 <form action="" method="POST">
 {% csrf_token %}
-    <div class="username">
+  <div class="form-group">
     <label for="{{ form.username.id_for_label }}">Username</label>
-    {{ form.username }}
-</div>
-<div class="password">
-    <label for="{{ form.password.id_for_label }}">Password</label>
+   {{ form.username }}
+  </div>
+  <div class="form-group">
+      <label for="{{ form.password.id_for_label }}">Password</label>
     {{ form.password }}
-</div>
-<button type = "submit">Submit</button>
+  </div>
+  <button type = "submit" class = "mt-2 btn btn-primary">Login</button>
 </form>
+  </div>
+</div>
 
+
+
+</div>
+<script>
+var inputArray = document.getElementsByTagName("input");
+for(let i=1; i<inputArray.length; i++){
+    inputArray[i].classList.add("form-control");
+}
+</script>
 {% endblock %}

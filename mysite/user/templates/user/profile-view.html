@@ -1,16 +1,27 @@
 {% extends 'mysite/base.html' %}
 {% block section %}
 
-Username: {{ user_info.username }} <br>
-First Name: {{ user.first_name }} <br>
-Last Name: {{ user.last_name }} <br>
-Email ID: {{ user_info.email }} <br>
+<div class="card" style="width: 100%">
+  <div class="card-body">
+    <h5 class="card-title">{{ user.get_full_name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ user_info.username }}</h6>
+    <p class="card-text">
+    Email ID: {{ user_info.email }} <br>
 Date of Birth: {{ user.birth_date }} <br>
 Adddress: {{ user.address }} <br>
 About me: {{ user.about_me }} <br>
+    </p>
+    <a href = {% url "user:change-password" %} class="card-link">Change Pasword</a>
+<a href = {% url "user:update-profile"%} class="card-link">Update Profile</a>
+  </div>
+</div>
 
-<hr>
-<a href = {% url "user:change-password" %}>Change Pasword</a>
-<a href = {% url "user:update-profile"%}>Update Profile</a>
+
+
+
+
+
+
+
 
 {% endblock %}
